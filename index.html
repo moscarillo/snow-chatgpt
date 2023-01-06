@@ -1,0 +1,98 @@
+<html>
+<head></head>
+<body>
+  <script>
+    // Create an array to store our snowflakes
+const snowflakes = [];
+
+// Snowflake class
+class Snowflake {
+  constructor() {
+    this.x = 0;
+    this.y = 0;
+    this.vx = 0;
+    this.vy = 0;
+    this.radius = 0;
+    this.alpha = 0;
+  }
+  move() {
+    this.x += this.vx;
+    this.y += this.vy;
+  }
+  draw(ctx) {
+    // Draw the snowflake
+    // You can customize the appearance of the snowflake here
+    
+    ctx.beginPath();
+    ctx.moveTo(this.x, this.y - this.radius);
+    ctx.lineTo(this.x + this.radius, this.y);
+    ctx.lineTo(this.x, this.y + this.radius);
+    ctx.lineTo(this.x - this.radius, this.y);
+    ctx.closePath();
+
+    ctx.moveTo(this.x, this.y - this.radius);
+    ctx.lineTo(this.x + this.radius/2, this.y - this.radius/2);
+    ctx.lineTo(this.x, this.y);
+    ctx.lineTo(this.x - this.radius/2, this.y - this.radius/2);
+    ctx.closePath();
+
+    ctx.moveTo(this.x, this.y + this.radius);
+    ctx.lineTo(this.x + this.radius/2, this.y + this.radius/2);
+    ctx.lineTo(this.x, this.y);
+    ctx.lineTo(this.x - this.radius/2, this.y + this.radius/2);
+    ctx.closePath();
+
+    ctx.stroke();
+  }
+}
+
+// Create canvas and context
+const canvas = document.createElement('canvas');
+const context = canvas.getContext('2d');
+
+// Resize canvas to full screen
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Append canvas to the page
+document.body.appendChild(canvas);
+
+// Animation loop
+function update() {
+  // Create a new snowflake at a random x position at the top of the screen
+  const snowflake = new Snowflake();
+  snowflake.x = Math.random() * canvas.width;
+  snowflake.y = 0;
+
+  // Set a random velocity for the snowflake
+  snowflake.vx = Math.random() - 0.5;
+  snowflake.vy = Math.random() + 1;
+
+  // Set a random radius for the snowflake
+  snowflake.radius = Math.random() * 3 + 1;
+
+  // Set a random alpha for the snowflake
+  snowflake.alpha = Math.random();
+
+  // Add the snowflake to the array
+  snowflakes.push(snowflake);
+
+  // Clear the canvas
+  context.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw and move each snowflake
+  for (const snowflake of snowflakes) {
+    snowflake.move();
+    snowflake.draw(context);
+  }
+
+  // Repeat the animation loop
+  requestAnimationFrame(update);
+}
+
+// Start the animation loop
+update();
+
+  </script>
+</body>
+</html>
