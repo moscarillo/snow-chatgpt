@@ -1,11 +1,5 @@
 <html>
-<head>
-  <style>
-     canvas { 
-      background-color: black;
-     }
-  </style>
-</head>
+<head></head>
 <body>
   <script>
     // Create an array to store our snowflakes
@@ -20,6 +14,7 @@ class Snowflake {
     this.vy = 0;
     this.radius = 0;
     this.alpha = 0;
+    this.fillStyle = "rgba(255, 255, 255, 0.5)";
   }
   move() {
     this.x += this.vx;
